@@ -21,6 +21,7 @@ from .execute_local import ExecuteLocal
 from .execute_process import ExecuteProcess
 from .group_action import GroupAction
 from .include_launch_description import IncludeLaunchDescription
+from .scoped_include_launch_description import ScopedIncludeLaunchDescription
 from .log_info import LogInfo
 from .opaque_coroutine import OpaqueCoroutine
 from .opaque_function import OpaqueFunction
@@ -57,6 +58,7 @@ __all__ = [
     'ResetEnvironment',
     'ResetLaunchConfigurations',
     'RegisterEventHandler',
+    'ScopedIncludeLaunchDescription',
     'SetEnvironmentVariable',
     'SetLaunchConfiguration',
     'Shutdown',

@@ -169,11 +169,11 @@ class IncludeLaunchDescription(Action):
             if ild_actions is not None:
                 for ild_action in ild_actions:
                     argument_names.extend(ild_action._try_get_arguments_names_without_context())
-            if argument.name not in argument_names:
+            if argument.name not in argument_names and argument.name not in context.launch_configurations:
                 raise RuntimeError(
                     "Included launch description missing required argument '{}' "
-                    "(description: '{}'), given: [{}]"
-                    .format(argument.name, argument.description, ', '.join(argument_names))
+                    "(description: '{}'), given: [{}] in file '{}', dbg: {}"
+                    .format(argument.name, argument.description, ', '.join(argument_names), self._get_launch_file(), context.launch_configurations)
                 )
 
         # Create actions to set the launch arguments into the launch configurations.

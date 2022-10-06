@@ -42,6 +42,29 @@ __all__ = [
 ]
 
 
+class ColoredFormatter(logging.Formatter):
+
+    grey = "\x1b[30;20m"
+    blue = "\x1b[34;20m"
+    yellow = "\x1b[33;20m"
+    red = "\x1b[31;20m"
+    reset = "\x1b[0m"
+
+    FORMATS = {
+        logging.DEBUG: grey,
+        logging.INFO: blue,
+        logging.WARNING: yellow,
+        logging.ERROR: red,
+        logging.CRITICAL: red
+    }
+
+    def __init__(self, fmt, style):
+        super().__init__(fmt, style=style)
+
+    def format(self, record):
+        return self.FORMATS.get(record.levelno) + super().format(record) + self.reset
+
+
 def _get_logging_directory():
     """
     Get logging directory path.
@@ -200,7 +223,7 @@ class LaunchConfig:
                     )
             if screen_style is None:
                 screen_style = '{'
-            self.screen_formatter = logging.Formatter(
+            self.screen_formatter = ColoredFormatter(
                 screen_format, style=screen_style
             )
             if self.screen_handler is not None:
